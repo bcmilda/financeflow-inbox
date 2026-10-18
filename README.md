@@ -1,7 +1,7 @@
-# FinanceFlow Native
+# FinanceFlow Inbox
 
-Samostatný projekt nativních aplikací FinanceFlow, souběžně s webovou appkou (`bcmilda/financeflow`).
-Plán celého převodu: `PLAN_NATIVNI_APLIKACE.md` ve webovém repu (`doc/`).
+Nadstavba webové appky FinanceFlow (`bcmilda/financeflow`): Android appka, která posílá bankovní notifikace do 📥 Doručených na webu (ADR-230, ADR-232).
+Není to nativní appka FinanceFlow – ta je samostatný projekt n0.2 (`financeflow-native`, plán v `doc/PLAN_NATIVNI_APLIKACE.md` webového repa).
 
 ## 📲 FinanceFlow Inbox (Android) · fáze 1 · v0.1.0
 
@@ -23,7 +23,7 @@ notifikace, opraví se parser ve webu a appku není potřeba aktualizovat.
 - Telefon se přihlašuje **anonymně** a s účtem se propojí jednorázovým kódem. Appka nezná tvůj e-mail ani heslo.
 
 ### Jak ji dostat do telefonu
-1. **Přes GitHub (doporučeno):** po nahrání tohohle repa na GitHub se APK sestaví samo.
+1. **Přes GitHub (doporučeno):** v repu `bcmilda/financeflow-inbox` se APK sestaví samo při každém pushi.
    - Na GitHubu: **Actions → Inbox Android → poslední běh → Artifacts → financeflow-inbox-apk**.
    - Stáhni ZIP a v něm je `app-debug.apk`.
 2. **Nebo v Android Studiu:** *Open* → složka `inbox-android` → tlačítko ▶ Run (telefon připojený kabelem).
