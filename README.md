@@ -23,9 +23,10 @@ notifikace, opraví se parser ve webu a appku není potřeba aktualizovat.
 - Telefon se přihlašuje **anonymně** a s účtem se propojí jednorázovým kódem. Appka nezná tvůj e-mail ani heslo.
 
 ### Jak ji dostat do telefonu
-1. **Přes GitHub (doporučeno):** v repu `bcmilda/financeflow-inbox` se APK sestaví samo při každém pushi.
-   - Na GitHubu: **Actions → Inbox Android → poslední běh → Artifacts → financeflow-inbox-apk**.
-   - Stáhni ZIP a v něm je `app-debug.apk`.
+1. **Přímý odkaz (doporučeno, otevři v telefonu):**
+   https://github.com/bcmilda/financeflow-inbox/releases/download/nejnovejsi/financeflow-inbox.apk
+   - APK se sestaví samo při každém pushi do `main` a vydá se v **Releases → nejnovejsi**.
+   - Záloha: **Actions → Inbox Android → poslední běh → Artifacts** (ZIP, potřeba přihlášení na GitHub).
 2. **Nebo v Android Studiu:** *Open* → složka `inbox-android` → tlačítko ▶ Run (telefon připojený kabelem).
 
 Instalace APK mimo Google Play: v telefonu povol „Instalovat neznámé aplikace“ pro prohlížeč / Soubory.

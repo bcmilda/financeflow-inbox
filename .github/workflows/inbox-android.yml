@@ -7,6 +7,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write   # vydání APK ke stažení (Releases)
+
 jobs:
   build:
     runs-on: ubuntu-24.04   # má předinstalované Android SDK (ANDROID_HOME)
@@ -31,3 +34,13 @@ jobs:
           name: financeflow-inbox-apk
           path: inbox-android/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 30
+      - name: Vydat APK ke stažení (Releases → nejnovejsi)
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp app/build/outputs/apk/debug/app-debug.apk financeflow-inbox.apk
+          gh release delete nejnovejsi --yes --cleanup-tag || true
+          gh release create nejnovejsi financeflow-inbox.apk --target "$GITHUB_SHA" \
+            --title "FinanceFlow Inbox – nejnovější sestavení" \
+            --notes "Sestaveno automaticky z commitu $GITHUB_SHA. Debug APK pro instalaci mimo Google Play."
