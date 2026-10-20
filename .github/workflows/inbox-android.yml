@@ -4,9 +4,7 @@ name: Inbox Android
 
 on:
   push:
-    paths:
-      - "inbox-android/**"
-      - ".github/workflows/inbox-android.yml"
+    branches: [main]
   workflow_dispatch:
 
 jobs:
