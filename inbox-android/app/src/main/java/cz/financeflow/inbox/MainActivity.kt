@@ -8,6 +8,8 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -110,6 +112,13 @@ class MainActivity : Activity() {
         else {
             k1.addView(text("Bez přístupu appka notifikace z banky neuvidí.", 14f, POPIS))
             k1.addView(tlacitko("Povolit přístup k oznámením") { ukazSouhlas() })
+            //  Android 13+: appka nainstalovaná mimo Google Play má přepínač zamčený („Omezené nastavení“).
+            if (Build.VERSION.SDK_INT >= 33) {
+                k1.addView(text("Je přepínač šedý a Android píše „Omezené nastavení“? Otevři informace o aplikaci → vpravo nahoře ⋮ → „Povolit omezená nastavení“ (potvrdíš PINem). Pak se sem vrať a povol přístup znovu.", 12f, POPIS).apply { setPadding(0, dp(8), 0, 0) })
+                k1.addView(tlacitko("Otevřít informace o aplikaci") {
+                    startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName")))
+                })
+            }
         }
 
         // 2) propojení
