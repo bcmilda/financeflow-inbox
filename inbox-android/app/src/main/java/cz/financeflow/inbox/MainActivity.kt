@@ -210,7 +210,7 @@ class MainActivity : Activity() {
     private fun naPozadi(prace: () -> Unit) {
         sit.execute {
             try { prace() } catch (e: Exception) {
-                hl.post { Toast.makeText(this, "Nepovedlo se: ${e.message?.take(120)}", Toast.LENGTH_LONG).show() }
+                hl.post { AlertDialog.Builder(this).setTitle("Propojení se nepovedlo").setMessage(e.message ?: "Neznámá chyba").setPositiveButton("OK", null).show() }
             }
             hl.post { vykresli() }
         }

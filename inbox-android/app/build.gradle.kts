@@ -13,8 +13,8 @@ android {
         applicationId = "cz.financeflow.inbox"
         minSdk = 26
         targetSdk = 34
-        versionCode = 2
-        versionName = "0.1.1"
+        versionCode = 3
+        versionName = "0.1.2"
     }
 
     //  Stejný testovací podpis při každém sestavení na GitHubu → nová verze se nainstaluje přes starou

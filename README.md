@@ -40,7 +40,7 @@ Instalace APK mimo Google Play: v telefonu povol „Instalovat neznámé aplikac
 ### Co musí být nasazené ve webu
 - **Pravidla databáze v11.89** (`database.rules.json` → Firebase Console). Bez nich telefon nic nezapíše.
 - **Web v11.89** (`js/inbox.js` a další).
-- Ve Firebase **Authentication → Anonymous** zapnuté (FinanceFlow ho už používá).
+- Ve Firebase **Authentication → Sign-in method → Anonymous** zapnuté. Web ho nepoužívá, zapíná se kvůli telefonu (bez něj chyba HTTP 400 ADMIN_ONLY_OPERATION při „Propojit s FinanceFlow“).
 - Kdyby byl API klíč v Google Cloud omezený jen na web (HTTP referrer), appka posílá hlavičku `Referer: https://financeflow.cz/`. Když to nestačí, přidej v Google Cloud Console ke klíči povolení pro Android.
 
 ### Omezení

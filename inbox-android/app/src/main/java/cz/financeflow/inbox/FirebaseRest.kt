@@ -30,8 +30,24 @@ class FirebaseRest(private val n: Nastaveni) {
         val proud = if (kod in 200..299) c.inputStream else c.errorStream
         val text = proud?.let { BufferedReader(InputStreamReader(it, Charsets.UTF_8)).use { r -> r.readText() } } ?: ""
         c.disconnect()
-        if (kod !in 200..299) throw Chyba(kod, "HTTP $kod: ${text.take(200)}")
+        if (kod !in 200..299) throw Chyba(kod, srozumitelne(kod, text))
         return text
+    }
+
+    /** Chyba Firebase česky (text z odpovědi je jinak v toastu useknutý). */
+    private fun srozumitelne(kod: Int, text: String): String {
+        val zprava = try {
+            val e = JSONObject(text).opt("error")
+            if (e is JSONObject) e.optString("message") else e?.toString() ?: ""
+        } catch (x: Exception) { text.take(120) }
+        val cesky = when {
+            zprava.startsWith("ADMIN_ONLY_OPERATION") || zprava.startsWith("OPERATION_NOT_ALLOWED") ->
+                "Ve Firebase není zapnuté anonymní přihlášení (Authentication → Sign-in method → Anonymous)."
+            zprava.contains("API_KEY") || zprava.contains("API key") -> "Firebase odmítl klíč appky (omezení klíče v Google Cloud)."
+            zprava.contains("Permission denied", true) -> "Databáze zápis odmítla (pravidla v11.89 nasazená?)."
+            else -> ""
+        }
+        return "HTTP $kod $zprava" + (if (cesky.isNotEmpty()) "\n$cesky" else "")
     }
 
     /** Platný idToken (anonymní účet telefonu se založí při prvním použití, token se obnovuje). */
